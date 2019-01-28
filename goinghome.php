@@ -1,54 +1,52 @@
 <?php
 
-include ('class_book.php');
-include ('class_vehicle.php');
-include ('class_player.php');
-
-$jason = new Player;
+include ('classes/book.class.php');
+include ('classes/vehicle.class.php');
+include ('classes/player.class.php');
+include ('classes/game.class.php');
+include ('classes/jobs.class.php');
 
 ?>
- <!DOCTYPE html>
+
 <html>
 <head>
-<title>Going Home Game</title>
+<title>Going Home</title>
 </head>
+
 <body>
 
-<h1>Welcome to Going Home</h1>
-<p>You are in the <?php echo strtolower($jason->location) ?></p>
-
-</body>
-</html> 
-<?php 
-if ($jason->location == 'Bedroom') { ?>
-	<img src="/images/bedroom.png" style="width:128px;height:128px"> <br />
-	<button type="button" name="gotokitchen" value="Bedroom">go to kitchen</button>
-<?php 
-
-$jason->location = $_POST['gotokitchen'];
-
-} elseif ($jason->location == 'kitchen') { 
-?>
-	<img src="/images/kitchen.png" style="width:128px;height:128px"> <br />
-	<button type="button" value="Kitchen">go to bedroom</button>
 <?php
+$newgame = new Game;
 
+if($newgame->game_start == true) {
+	echo "What is your name" . "<br />";
+	$player = new Player;
+?>
+<form action="/goinghome.php">
+  First name: <input type="text" name="name"><br>
+  <input type="submit" value="Submit">
+</form>
 
+<?php
+    $name = $_GET['name'];
+	if($name == '') {
+		$player->name = $player->name;
+		echo 'The default name is ' . $player->name . "<br />";
+	} else {
+		$player->name = $name;
+		echo 'your name is ' . $player->name . "<br />";
+	}
+
+} else {
+	echo "Game has not started.";
 }
 
-
-$araba = new Car;
-$araba->make = 'Araba';
-$araba->model = 'Hizli';
-$araba->color = 'Blue';
-// echo 'This car has ' . $araba->numWheels . ' wheels' . '<br />';
-// echo $araba->carName() . '<br />';
-// echo 'The car\'s color is ' . $araba->color . '.' . '<br />';
-
-
-$robinhood = new Book;
-$robinhood->title = 'Robin Hood';
-
-// echo $robinhood->whatTitle() . '<br />';
+echo "name: " . $player->name . "<br />";
+echo "location: " . $player->location . "<br />";
+echo "money: " . $player->money . "<br />";
 
 ?>
+
+
+</body>
+</html>
