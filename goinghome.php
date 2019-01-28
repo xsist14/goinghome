@@ -5,7 +5,6 @@ include ('classes/vehicle.class.php');
 include ('classes/player.class.php');
 include ('classes/game.class.php');
 include ('classes/jobs.class.php');
-
 ?>
 
 <html>
